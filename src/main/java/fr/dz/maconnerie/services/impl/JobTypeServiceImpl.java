@@ -10,26 +10,31 @@ import java.util.List;
 
 @Service
 public class JobTypeServiceImpl implements JobTypeService {
-        @Autowired
-        private JobTypeRepository jobTypeRepository;
+    @Autowired
+    private final JobTypeRepository jobTypeRepository;
 
-        public List<JobTypeEntity> getAllJobTypes() {
-            return (List<JobTypeEntity>) jobTypeRepository.findAll();
-        }
-
-        public JobTypeEntity addJobType(JobTypeEntity jobType) {
-            return jobTypeRepository.save(jobType);
-        }
-
-        public void deleteJobType(Long id) {
-            jobTypeRepository.deleteById(id);
-        }
-
-        public JobTypeEntity updateJobType(Long id, JobTypeEntity updatedJobType) {
-            // Implement update logic here
-            // You may want to retrieve the existing job type by id, update its properties, and save it
-            return jobTypeRepository.save(updatedJobType);
-        }
+    public JobTypeServiceImpl(JobTypeRepository jobTypeRepository) {
+        this.jobTypeRepository = jobTypeRepository;
     }
+
+    public List<JobTypeEntity> getAllJobTypes() {
+
+        return (List<JobTypeEntity>) jobTypeRepository.findAll();
+    }
+
+    public JobTypeEntity addJobType(JobTypeEntity jobType) {
+        return jobTypeRepository.save(jobType);
+    }
+
+    public void deleteJobType(Long id) {
+        jobTypeRepository.deleteById(id);
+    }
+
+    public JobTypeEntity updateJobType(Long id, JobTypeEntity updatedJobType) {
+        // Implement update logic here
+        // You may want to retrieve the existing job type by id, update its properties, and save it
+        return jobTypeRepository.save(updatedJobType);
+    }
+}
 
 
