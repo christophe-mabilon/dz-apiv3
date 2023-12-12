@@ -23,9 +23,6 @@ public class RealisationEntity {
     private String title;
     private String content;
     private String footer;
-    @Nullable
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "realisation_id")
-    private List<ImageEntity> images;
+
 }
 

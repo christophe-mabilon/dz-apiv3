@@ -1,6 +1,7 @@
 package fr.dz.maconnerie.services.jwt;
 
-import fr.dz.maconnerie.entities.User;
+
+import fr.dz.maconnerie.entities.UserEntity;
 import fr.dz.maconnerie.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         //Write Logic to get the user from the DB
-        User user = userRepository.findFirstByEmail(email);
+        UserEntity user = userRepository.findFirstByEmail(email);
         if(user == null){
             throw new UsernameNotFoundException("User not found",null);
         }

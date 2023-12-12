@@ -17,15 +17,19 @@ import java.util.List;
 @Table(name = "homeText")
 public class HomeTextEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    private Integer position;
+
     private String title;
     private String content;
     private String footer;
-    @Nullable
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "home_text_id")
-    private List<ImageEntity> images;
+
+
+    private int position;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] imageData;
 
 }

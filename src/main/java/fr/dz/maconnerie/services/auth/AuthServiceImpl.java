@@ -2,7 +2,7 @@ package fr.dz.maconnerie.services.auth;
 
 import fr.dz.maconnerie.dto.SignupDTO;
 import fr.dz.maconnerie.dto.UserDTO;
-import fr.dz.maconnerie.entities.User;
+import fr.dz.maconnerie.entities.UserEntity;
 import fr.dz.maconnerie.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,15 +16,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDTO createUser(SignupDTO signupDTO) {
-        User user = new User();
-        user.setName(signupDTO.getName());
-        user.setEmail(signupDTO.getEmail());
-        user.setPassword(new BCryptPasswordEncoder().encode(signupDTO.getPassword()));
-        User createdUser = userRepository.save(user);
+        UserEntity userEntity = new UserEntity();
+        userEntity.setName(signupDTO.getName());
+        userEntity.setEmail(signupDTO.getEmail());
+        userEntity.setPassword(new BCryptPasswordEncoder().encode(signupDTO.getPassword()));
+        UserEntity createdUserEntity = userRepository.save(userEntity);
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(createdUser.getId());
-        userDTO.setEmail(createdUser.getEmail());
-        userDTO.setName(createdUser.getName());
+        userDTO.setId(createdUserEntity.getId());
+        userDTO.setEmail(createdUserEntity.getEmail());
+        userDTO.setName(createdUserEntity.getName());
         return userDTO;
     }
 }

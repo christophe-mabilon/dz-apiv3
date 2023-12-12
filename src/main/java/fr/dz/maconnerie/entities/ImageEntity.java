@@ -1,13 +1,13 @@
 package fr.dz.maconnerie.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -15,18 +15,20 @@ import lombok.Setter;
 @Table(name = "image")
 public class ImageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    private String name;
-    private String b64Image;
-    @ManyToOne
-    @JoinColumn(name = "home_text_id")
-    private HomeTextEntity homeText;
-    @ManyToOne
-    @JoinColumn(name = "prestation_id")
-    private HomeTextEntity prestation;
-    @ManyToOne
-    @JoinColumn(name = "realisation_id")
-    private HomeTextEntity realisation;
 
+    @NotBlank
+    @Size(max = 255)
+    private String name;
+
+    @Size(max = 1000)
+    private String text;
+
+    private int position;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] imageData;
 }
