@@ -10,4 +10,5 @@ public interface JobTypeService {
     public void deleteJobType(Long id);
     public JobTypeEntity updateJobType(Long id, JobTypeEntity updatedJobType);
 
+    public JobTypeEntity updateImagePosition(Long id, int position);
 }

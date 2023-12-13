@@ -1,10 +1,12 @@
 package fr.dz.maconnerie.controllers;
 
 
+import fr.dz.maconnerie.entities.ImageEntity;
 import fr.dz.maconnerie.entities.JobTypeEntity;
 import fr.dz.maconnerie.services.JobTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,13 +27,25 @@ public class JobTypeController {
         return jobTypeService.addJobType(jobType);
     }
 
+    @PutMapping("/{id}")
+    public JobTypeEntity updateJobType(@PathVariable Long id, @RequestBody JobTypeEntity updatedJobType) {
+        return jobTypeService.updateJobType(id, updatedJobType);
+    }
+    @PutMapping("position/{id}")
+    public ResponseEntity<JobTypeEntity> updateImage(@PathVariable Long id, @RequestBody int position) {
+        JobTypeEntity updatedImage = jobTypeService.updateImagePosition(id, position);
+
+        if (updatedImage != null) {
+            return new ResponseEntity<>(updatedImage, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public void deleteJobType(@PathVariable Long id) {
         jobTypeService.deleteJobType(id);
     }
 
-    @PutMapping("/{id}")
-    public JobTypeEntity updateJobType(@PathVariable Long id, @RequestBody JobTypeEntity updatedJobType) {
-        return jobTypeService.updateJobType(id, updatedJobType);
-    }
+
 }
