@@ -1,8 +1,6 @@
 package fr.dz.maconnerie.controllers;
 
 import fr.dz.maconnerie.entities.HomeTextEntity;
-import fr.dz.maconnerie.entities.ImageEntity;
-import fr.dz.maconnerie.payload.request.HomeTextUpdateRequest;
 import fr.dz.maconnerie.services.HomeTextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/homeTexts")
 public class HomeTextController {

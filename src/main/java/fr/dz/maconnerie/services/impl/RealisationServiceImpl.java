@@ -4,10 +4,11 @@ package fr.dz.maconnerie.services.impl;
 import fr.dz.maconnerie.entities.RealisationEntity;
 import fr.dz.maconnerie.repositories.RealisationRepository;
 import fr.dz.maconnerie.services.RealisationService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class RealisationServiceImpl implements RealisationService {
 
     private final RealisationRepository prestationRepository;
