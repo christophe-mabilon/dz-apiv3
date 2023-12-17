@@ -2,10 +2,7 @@ package fr.dz.maconnerie.entities;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "homeText")
 public class HomeTextEntity {
     @Id
@@ -22,14 +20,13 @@ public class HomeTextEntity {
     private Long id;
 
     private String title;
+    @Column(length = 50000)
     private String content;
-    private String footer;
-
-
     private int position;
-
+    private String align_text;
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] imageData;
+
 
 }

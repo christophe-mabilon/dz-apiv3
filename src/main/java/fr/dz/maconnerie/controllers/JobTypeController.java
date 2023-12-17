@@ -1,7 +1,5 @@
 package fr.dz.maconnerie.controllers;
 
-
-import fr.dz.maconnerie.entities.ImageEntity;
 import fr.dz.maconnerie.entities.JobTypeEntity;
 import fr.dz.maconnerie.services.JobTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +31,10 @@ public class JobTypeController {
     }
     @PutMapping("position/{id}")
     public ResponseEntity<JobTypeEntity> updateImage(@PathVariable Long id, @RequestBody int position) {
-        JobTypeEntity updatedImage = jobTypeService.updateImagePosition(id, position);
+        JobTypeEntity updatedPosition = jobTypeService.updateImagePosition(id, position);
 
-        if (updatedImage != null) {
-            return new ResponseEntity<>(updatedImage, HttpStatus.OK);
+        if (updatedPosition != null) {
+            return new ResponseEntity<>(updatedPosition, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

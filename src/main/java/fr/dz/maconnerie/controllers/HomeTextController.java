@@ -1,34 +1,66 @@
 package fr.dz.maconnerie.controllers;
 
 import fr.dz.maconnerie.entities.HomeTextEntity;
+import fr.dz.maconnerie.entities.ImageEntity;
+import fr.dz.maconnerie.payload.request.HomeTextUpdateRequest;
 import fr.dz.maconnerie.services.HomeTextService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
-@CrossOrigin(origins = "*", maxAge = 3600)
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/hometexts")
+@RequestMapping("/api/homeTexts")
 public class HomeTextController {
+    @Autowired
+    private HomeTextService homeTextService;
 
-    private final HomeTextService homeTextService;
-
-    public HomeTextController(HomeTextService homeTextService) {
-        this.homeTextService = homeTextService;
-    }
-
-    @GetMapping
+    @GetMapping("/all")
     public List<HomeTextEntity> getAllHomeTexts() {
         return homeTextService.getAllHomeTexts();
     }
 
-    @PostMapping
-    public HomeTextEntity createHomeText(@RequestBody HomeTextEntity homeText) {
-        return homeTextService.createHomeText(homeText);
+    @PostMapping("/add")
+    public HomeTextEntity createHomeText(
+            @RequestPart("imageData") Optional<MultipartFile> file,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("position") Integer position,
+            @RequestParam("align_text") String alignText) throws IOException {
+
+        return homeTextService.createHomeText(title,content,position,alignText,file);
     }
 
-    @PatchMapping("/{id}")
-    public HomeTextEntity updateHomeTextPosition(@PathVariable Long id, @RequestParam Integer position) {
-        return homeTextService.updateHomeTextPosition(id, position);
+    @PutMapping("/{id}")
+    public HomeTextEntity updateHomeText(@PathVariable Long id,
+                                         @RequestPart("imageData") Optional<MultipartFile> file,
+                                         @RequestParam("title") String title,
+                                         @RequestParam("content") String content,
+                                         @RequestParam("position") Integer position,
+                                         @RequestParam("align_text") String alignText) throws IOException {
+        return homeTextService.updateHomeText(
+                id,
+                title,
+                content,
+                position,
+                alignText,
+                file        );
+    }
+
+    @PutMapping("position/{id}")
+    public ResponseEntity<HomeTextEntity> updateImage(@PathVariable Long id, @RequestBody int position) {
+        HomeTextEntity updatedPosition = homeTextService.updateImagePosition(id, position);
+
+        if (updatedPosition != null) {
+            return new ResponseEntity<>(updatedPosition, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{id}")
